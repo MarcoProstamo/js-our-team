@@ -49,7 +49,7 @@ function generateCards(list) {
   list.forEach((member) => {
     const memberCard = `
         <div class="col">
-        <div class="card flex-row border-0 w-100">
+        <div class="card flex-row w-100">
         <img
         src="./${member.img}"
         class="rounded-start w-25"
@@ -72,16 +72,27 @@ function generateCards(list) {
 cardsContainerEl.innerHTML = generateCards(teamMembers);
 
 submitInputsEl.addEventListener("click", () => {
-  const name = inputFullNameEl.value;
-  const role = inputRoleEl.value;
-  const email = inputEmailEl.value;
-  const img = inputImgEl.value;
-  inputFullNameEl.value = "";
-  inputRoleEl.value = "";
-  inputEmailEl.value = "";
-  inputImgEl.value = "";
+  const name = inputFullNameEl.value.trim();
+  const role = inputRoleEl.value.trim();
+  const email = inputEmailEl.value.trim();
+  const img = inputImgEl.value.trim();
 
-  teamMembers.push({ name, role, email, img });
+  const isNameValid = name.length > 2;
+  const isRoleValid = role.length > 2;
+  const isEmailValid =
+    email.length > 5 && email.includes("@") && email.includes(".");
+  const isImgValid = img.length > 7 && img.includes("/") && img.includes(".");
 
-  cardsContainerEl.innerHTML = generateCards(teamMembers);
+  if (isNameValid && isRoleValid && isEmailValid && isImgValid) {
+    inputFullNameEl.value = "";
+    inputRoleEl.value = "";
+    inputEmailEl.value = "";
+    inputImgEl.value = "";
+
+    teamMembers.push({ name, role, email, img });
+
+    cardsContainerEl.innerHTML = generateCards(teamMembers);
+  } else alert("Wrong Input");
+
+  console.log(" ".length);
 });
