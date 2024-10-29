@@ -37,29 +37,51 @@ const teamMembers = [
   },
 ];
 
-const cardsContainer = document.querySelector("#cardsContainer");
+const cardsContainerEl = document.querySelector("#cardsContainer");
+const inputFullNameEl = document.querySelector("#input-fullName");
+const inputRoleEl = document.querySelector("#input-role");
+const inputEmailEl = document.querySelector("#input-email");
+const inputImgEl = document.querySelector("#input-img");
+const submitInputsEl = document.querySelector("#submit-inputs");
 
-let htmlCards = ``;
-
-teamMembers.forEach((member) => {
-  const memberCard = `
-    <div class="col-md-6 col-lg-4 p-0">
+function generateCards(list) {
+  let htmlCards = ``;
+  list.forEach((member) => {
+    const memberCard = `
+        <div class="col-md-6 col-lg-4 p-0">
         <div class="card flex-row border-0 m-1">
         <img
-            src="./${member.img}"
-            class="rounded-start img-fluid"
-            alt="..."
+        src="./${member.img}"
+        class="rounded-start img-fluid"
+        alt="..."
         />
         <div class="card-body text-bg-dark rounded-end">
-            <h3 class="card-title fw-bold">${member.name}</h3>
-            <p class="card-text fw-semibold h5">${member.role}</p>
-            <a href="mailto:${member.email}" class="fw-semibold fs-6">${member.email}</a>
+        <h3 class="card-title fw-bold">${member.name}</h3>
+        <p class="card-text fw-semibold h5">${member.role}</p>
+        <a href="mailto:${member.email}" class="fw-semibold fs-6">${member.email}</a>
         </div>
         </div>
-    </div>
-    `;
+        </div>
+        `;
 
-  htmlCards += memberCard;
+    htmlCards += memberCard;
+  });
+  return htmlCards;
+}
+
+cardsContainerEl.innerHTML = generateCards(teamMembers);
+
+submitInputsEl.addEventListener("click", () => {
+  const name = inputFullNameEl.value;
+  const role = inputRoleEl.value;
+  const email = inputEmailEl.value;
+  const img = inputImgEl.value;
+  inputFullNameEl.value = "";
+  inputRoleEl.value = "";
+  inputEmailEl.value = "";
+  inputImgEl.value = "";
+
+  teamMembers.push({ name, role, email, img });
+
+  cardsContainerEl.innerHTML = generateCards(teamMembers);
 });
-
-cardsContainer.innerHTML = htmlCards;
