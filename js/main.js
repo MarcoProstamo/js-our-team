@@ -48,11 +48,11 @@ function generateCards(list) {
   let htmlCards = ``;
   list.forEach((member) => {
     const memberCard = `
-        <div class="col-md-6 col-lg-4 p-0">
-        <div class="card flex-row border-0 m-1">
+        <div class="col">
+        <div class="card flex-row border-0 w-100">
         <img
         src="./${member.img}"
-        class="rounded-start img-fluid"
+        class="rounded-start w-25"
         alt="..."
         />
         <div class="card-body text-bg-dark rounded-end">
