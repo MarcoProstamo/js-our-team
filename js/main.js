@@ -36,3 +36,30 @@ const teamMembers = [
     img: "img/female3.png",
   },
 ];
+
+const cardsContainer = document.querySelector("#cardsContainer");
+
+let htmlCards = ``;
+
+teamMembers.forEach((member) => {
+  const memberCard = `
+    <div class="col-md-6 col-lg-4 p-0">
+        <div class="card flex-row border-0 m-1">
+        <img
+            src="./${member.img}"
+            class="rounded-start img-fluid"
+            alt="..."
+        />
+        <div class="card-body text-bg-dark rounded-end">
+            <h3 class="card-title fw-bold">${member.name}</h3>
+            <p class="card-text fw-semibold h5">${member.role}</p>
+            <a href="mailto:${member.email}" class="fw-semibold fs-6">${member.email}</a>
+        </div>
+        </div>
+    </div>
+    `;
+
+  htmlCards += memberCard;
+});
+
+cardsContainer.innerHTML = htmlCards;
